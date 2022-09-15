@@ -7,7 +7,6 @@ public class Aluno {
 	
 	private CPF cpf;
 	private String nome;
-	
 	private Email email;
 	
 	private List<Telefone> telefones = new ArrayList<>();
@@ -21,7 +20,10 @@ public class Aluno {
 	}
 
 	public void adicionarTelefone(String ddd, String numero) {
-		this.telefones.add(new Telefone(ddd, numero));
+		if(telefones.size() >= 2) {
+			throw new IllegalArgumentException("Número máximo de telefones atingido!");
+		}
+		this.telefones.add(new Telefone(ddd, numero));			
 	}
 	
 	public String getCpf() {
