@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.alura.escola.dominio.PublicadorEventos;
 import br.com.alura.escola.dominio.aluno.Aluno;
 import br.com.alura.escola.dominio.aluno.CPF;
+import br.com.alura.escola.dominio.aluno.LogAlunoMatriculado;
 import br.com.alura.escola.infra.aluno.RepositorioDeAlunosEmMemoria;
 
 class MatricularAlunoTest {
@@ -14,7 +16,9 @@ class MatricularAlunoTest {
 	void alunoDeveriaSerPersistido() {
 		// MOCK -> Mockito
 		RepositorioDeAlunosEmMemoria repositorio = new RepositorioDeAlunosEmMemoria();
-		MatricularAluno useCase = new MatricularAluno(repositorio);
+		PublicadorEventos eventos = new PublicadorEventos();
+		eventos.adicionar(new LogAlunoMatriculado());
+		MatricularAluno useCase = new MatricularAluno(repositorio, eventos);
 		
 		MatricularAlunoDto dados = new MatricularAlunoDto(
 				"Fulano", 
